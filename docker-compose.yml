@@ -1,0 +1,24 @@
+
+services:
+  backend-spring-1:
+    image: 'whichisyou/sprin-mid-1-repo'
+    container_name: 'backend-spring-1'
+    depends_on:
+      - database-service
+    environment:
+      - SPRING.DATASOURCE.URL=jdbc:postgresql://database-service:5432/mid_db
+      - SPRING.DATASOURCE.USERNAME=demo
+      - SPRING.DATASOURCE.PASSWORD=secret
+      - SPRING.JPA.HIBERNATE.DDL-AUTO=update
+      - SPRING.JPA.SHOW-SQL=true
+    ports:
+      - 8888:8080
+  database-service:
+    image: 'postgres'
+    container_name: "database-service"
+    environment:
+      - POSTGRES_USER=demo
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=mid_db
+    ports:
+      - 2345:5432
