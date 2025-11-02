@@ -63,18 +63,14 @@ public class ItemMapperTest {
 
     @Test
     void convertDtoToEntityTest() {
-        CategoryDto categoryEntity = new CategoryDto(1L, "Electronics");
-        CategoryDto categoryEntity2 = new CategoryDto(2L, "Tech");
-        List<CategoryDto> categoryDtos = new ArrayList<>();
-        categoryDtos.add(categoryEntity);
-        categoryDtos.add(categoryEntity2);
-
+        CategoryDto categoryDto = new CategoryDto(1L, "Electronics");
         CountryDto countryDto = new CountryDto(1L, "Kazakhstan", "KZ");
 
-        ItemDto itemDto = new ItemDto(1L, "Product", 1200, countryDto, categoryDtos);
-
+        ItemDto itemDto = new ItemDto(1L, "Product", 1200, countryDto, List.of(categoryDto));
 
         ItemEntity entity = itemMapper.toEntity(itemDto);
+
+
 
         Assertions.assertNotNull(entity);
 
@@ -85,14 +81,16 @@ public class ItemMapperTest {
         Assertions.assertNotNull(entity.getCountry());
         Assertions.assertNotNull(entity.getCategories());
 
+
+
         Assertions.assertEquals(entity.getId(), itemDto.getId());
         Assertions.assertEquals(entity.getName(), itemDto.getNameDto());
         Assertions.assertEquals(entity.getPrice(), itemDto.getPriceDto());
-        // Comparing Country fields instead of objects (Entity vs Dto)
+        // Country inside dto
         Assertions.assertEquals(entity.getCountry().getId(), itemDto.getCountryDto().getId());
         Assertions.assertEquals(entity.getCountry().getName(), itemDto.getCountryDto().getNameDto());
         Assertions.assertEquals(entity.getCountry().getCode(), itemDto.getCountryDto().getCodeDto());
-        // Comparing Categories fields
+        // Categories inside dto
         Assertions.assertEquals(entity.getCategories().size(), itemDto.getCategoriesDto().size());
         for (int i = 0; i < entity.getCategories().size(); i++) {
             Assertions.assertEquals(entity.getCategories().get(i).getId(), itemDto.getCategoriesDto().get(i).getId());
@@ -106,35 +104,33 @@ public class ItemMapperTest {
     @Test
     void convertEntityListToDtoListTest() {
         CategoryEntity categoryEntity = new CategoryEntity(1L, "Electronics");
-        CategoryEntity categoryEntity2 = new CategoryEntity(2L, "Tech");
-        List<CategoryEntity> categoryEntities = new ArrayList<>();
-        categoryEntities.add(categoryEntity);
-        categoryEntities.add(categoryEntity2);
-
         CountryEntity countryEntity = new CountryEntity(1L, "Kazakhstan", "KZ");
-
         List<ItemEntity> itemEntities = new ArrayList<>();
 
-        itemEntities.add(new ItemEntity(1L, "1", 123, countryEntity, categoryEntities));
-        itemEntities.add(new ItemEntity(2L, "2", 123, countryEntity, categoryEntities));
-        itemEntities.add(new ItemEntity(3L, "3", 123, countryEntity, categoryEntities));
+
+
+        itemEntities.add(new ItemEntity(1L, "1", 123, countryEntity, List.of(categoryEntity)));
+        itemEntities.add(new ItemEntity(2L, "2", 123, countryEntity, List.of(categoryEntity)));
+        itemEntities.add(new ItemEntity(3L, "3", 123, countryEntity, List.of(categoryEntity)));
+
+
 
         List<ItemDto> itemDtoList = itemMapper.toDtoList(itemEntities);
+
+
 
         Assertions.assertNotNull(itemDtoList);
 
         Assertions.assertNotEquals(0, itemDtoList.size());
-
         Assertions.assertEquals(itemEntities.size(), itemDtoList.size());
+
 
         for ( int i = 0; i < itemDtoList.size(); i++) {
 
-
             ItemEntity itemEntity = itemEntities.get(i);
-
             ItemDto itemDto = itemDtoList.get(i);
-
             Assertions.assertNotNull(itemDto);
+
 
             Assertions.assertNotNull(itemDto.getId());
             Assertions.assertNotNull(itemDto.getNameDto());
@@ -146,11 +142,11 @@ public class ItemMapperTest {
             Assertions.assertEquals(itemDto.getId(), itemEntity.getId());
             Assertions.assertEquals(itemDto.getNameDto(), itemEntity.getName());
             Assertions.assertEquals(itemDto.getPriceDto(), itemEntity.getPrice());
-            // Comparing Country fields instead of objects (Entity vs Dto)
+            // Country
             Assertions.assertEquals(itemDto.getCountryDto().getId(), itemEntity.getCountry().getId());
             Assertions.assertEquals(itemDto.getCountryDto().getNameDto(), itemEntity.getCountry().getName());
             Assertions.assertEquals(itemDto.getCountryDto().getCodeDto(), itemEntity.getCountry().getCode());
-            // Comparing Categories fields
+            // Categories
             Assertions.assertEquals(itemDto.getCategoriesDto().size(), itemEntity.getCategories().size());
             for (int j = 0; j < itemDto.getCategoriesDto().size(); j++) {
                 Assertions.assertEquals(itemDto.getCategoriesDto().get(j).getId(), itemEntity.getCategories().get(j).getId());
