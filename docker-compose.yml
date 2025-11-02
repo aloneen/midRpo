@@ -22,3 +22,12 @@ services:
       - POSTGRES_DB=mid_db
     ports:
       - 2345:5432
+  test-database-service:
+    image: 'postgres'
+    container_name: "test-database-service"
+    environment:
+      - POSTGRES_USER=demo
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=mid_db
+    ports:
+      - 2346:5432
