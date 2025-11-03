@@ -1,8 +1,7 @@
-package kz.seisen.mid_rpo;
+package kz.seisen.mid_rpo.mapper;
 
 import kz.seisen.mid_rpo.dto.CountryDto;
 import kz.seisen.mid_rpo.entity.CountryEntity;
-import kz.seisen.mid_rpo.mapper.CountryMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

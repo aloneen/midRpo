@@ -1,4 +1,4 @@
-package kz.seisen.mid_rpo;
+package kz.seisen.mid_rpo.mapper;
 
 
 import kz.seisen.mid_rpo.dto.CategoryDto;
@@ -7,7 +7,6 @@ import kz.seisen.mid_rpo.dto.ItemDto;
 import kz.seisen.mid_rpo.entity.CategoryEntity;
 import kz.seisen.mid_rpo.entity.CountryEntity;
 import kz.seisen.mid_rpo.entity.ItemEntity;
-import kz.seisen.mid_rpo.mapper.ItemMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
