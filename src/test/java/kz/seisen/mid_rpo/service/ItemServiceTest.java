@@ -28,15 +28,10 @@ public class ItemServiceTest {
 
 
         Assertions.assertNotNull(itemDtoList);
-
         Assertions.assertNotEquals(0, itemDtoList.size());
 
-        for (int i = 0; i < itemDtoList.size(); i++) {
-
-            ItemDto dto = itemDtoList.get(i);
-
+        for (ItemDto dto : itemDtoList) {
             Assertions.assertNotNull(dto);
-
             Assertions.assertNotNull(dto.getId());
             Assertions.assertNotNull(dto.getNameDto());
             Assertions.assertNotNull(dto.getPriceDto());

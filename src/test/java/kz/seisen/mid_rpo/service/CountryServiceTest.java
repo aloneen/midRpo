@@ -73,6 +73,10 @@ public class CountryServiceTest {
 
         CountryDto updatedCountry = countryService.getById(someIndex);
         Assertions.assertNotNull(updatedCountry);
+        Assertions.assertNotNull(updatedCountry.getId());
+        Assertions.assertNotNull(updatedCountry.getNameDto());
+        Assertions.assertNotNull(updatedCountry.getCodeDto());
+
         Assertions.assertEquals(dto.getId(), updatedCountry.getId());
         Assertions.assertEquals(dto.getNameDto(), updatedCountry.getNameDto());
         Assertions.assertEquals(dto.getCodeDto(), updatedCountry.getCodeDto());
@@ -95,5 +99,6 @@ public class CountryServiceTest {
         Assertions.assertEquals(before - 1, after);
     }
 }
+
 
 
