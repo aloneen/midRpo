@@ -8,7 +8,7 @@ import java.util.List;
 public interface CountryService {
     List<CountryDto> getAll();
     CountryDto getById(Long id);
-    boolean create(CountryDto dto);
+    CountryDto create(CountryDto dto);
     boolean update(Long id, CountryDto dto);
     void delete(Long id);
 }

@@ -51,9 +51,28 @@ public class CountryServiceTest {
     void addTest() {
         int before = countryService.getAll().size();
 
-        CountryDto countryDto = new CountryDto(null, "New Country", "NC");
+        CountryDto countryDto = new CountryDto();
+        countryDto.setNameDto("name");
+        countryDto.setCodeDto("code");
 
-        Assertions.assertTrue(countryService.create(countryDto));
+        CountryDto add = countryService.create(countryDto);
+
+        Assertions.assertNotNull(add);
+        Assertions.assertNotNull(add.getId());
+        Assertions.assertNotNull(add.getNameDto());
+        Assertions.assertNotNull(add.getCodeDto());
+
+
+        CountryDto added = countryService.getById(add.getId());
+
+        Assertions.assertNotNull(added);
+        Assertions.assertNotNull(added.getId());
+        Assertions.assertNotNull(added.getNameDto());
+        Assertions.assertNotNull(added.getCodeDto());
+
+        Assertions.assertEquals(add.getId(), added.getId());
+        Assertions.assertEquals(add.getNameDto(), added.getNameDto());
+        Assertions.assertEquals(add.getCodeDto(), added.getCodeDto());
 
         int after = countryService.getAll().size();
         Assertions.assertEquals(before + 1, after);
@@ -90,15 +109,20 @@ public class CountryServiceTest {
         int randomIndex = random.nextInt(countryService.getAll().size());
         Long someIndex = countryService.getAll().get(randomIndex).getId();
 
+
         countryService.delete(someIndex);
 
         CountryDto deleted = countryService.getById(someIndex);
         Assertions.assertNull(deleted);
 
         int after = countryService.getAll().size();
-        Assertions.assertEquals(before - 1, after);
+        Assertions.assertEquals(before-1, after);
     }
 }
+
+
+
+
 
 
 

@@ -3,6 +3,7 @@ package kz.seisen.mid_rpo.service.impl;
 
 import kz.seisen.mid_rpo.dto.CategoryDto;
 import kz.seisen.mid_rpo.dto.ItemDto;
+import kz.seisen.mid_rpo.entity.CategoryEntity;
 import kz.seisen.mid_rpo.mapper.CategoryMapper;
 import kz.seisen.mid_rpo.mapper.ItemMapper;
 import kz.seisen.mid_rpo.repository.CategoryRepository;
@@ -33,11 +34,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public boolean create(CategoryDto dto) {
-        if (Objects.isNull(dto)) return false;
+    public CategoryDto create(CategoryDto dto) {
+        if (Objects.isNull(dto)) return null;
 
-        repository.save(mapper.toEntity(dto));
-        return true;
+        CategoryEntity saved = repository.save(mapper.toEntity(dto));
+        return mapper.toDto(saved);
     }
 
     @Override

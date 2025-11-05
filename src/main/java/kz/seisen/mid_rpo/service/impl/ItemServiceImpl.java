@@ -2,6 +2,7 @@ package kz.seisen.mid_rpo.service.impl;
 
 
 import kz.seisen.mid_rpo.dto.ItemDto;
+import kz.seisen.mid_rpo.entity.ItemEntity;
 import kz.seisen.mid_rpo.mapper.ItemMapper;
 import kz.seisen.mid_rpo.repository.ItemRepository;
 import kz.seisen.mid_rpo.service.ItemService;
@@ -30,11 +31,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public boolean create(ItemDto dto) {
-        if (Objects.isNull(dto)) return false;
+    public ItemDto create(ItemDto dto) {
+        if (Objects.isNull(dto)) return null;
 
-        repository.save(mapper.toEntity(dto));
-        return true;
+        ItemEntity saved = repository.save(mapper.toEntity(dto));
+        return mapper.toDto(saved);
     }
 
     @Override
@@ -57,6 +58,14 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void delete(Long id) {
+        ItemEntity item = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Item not found"));
+
+
+        item.getCategories().clear();
+        repository.save(item);
+
+
         repository.deleteById(id);
     }
 }

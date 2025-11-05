@@ -21,11 +21,10 @@ public class ItemEntity {
     private String name;
     private int price;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "countryId")
     private CountryEntity country;
 
-
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<CategoryEntity> categories;
 }

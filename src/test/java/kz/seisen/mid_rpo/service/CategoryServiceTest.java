@@ -2,6 +2,7 @@ package kz.seisen.mid_rpo.service;
 
 
 import kz.seisen.mid_rpo.dto.CategoryDto;
+import kz.seisen.mid_rpo.dto.ItemDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +50,28 @@ public class CategoryServiceTest {
     void addTest() {
         int before = categoryService.getAll().size();
 
-        CategoryDto categoryDto = new CategoryDto(null, "New Category");
 
-        Assertions.assertTrue(categoryService.create(categoryDto));
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setNameDto("New Cat");
+
+        CategoryDto add = categoryService.create(categoryDto);
+
+        Assertions.assertNotNull(add);
+        Assertions.assertNotNull(add.getId());
+        Assertions.assertNotNull(add.getNameDto());
+
+        CategoryDto added = categoryService.getById(add.getId());
+
+        Assertions.assertNotNull(added);
+        Assertions.assertNotNull(added.getId());
+        Assertions.assertNotNull(added.getNameDto());
+
+
+        Assertions.assertEquals(add.getId(), added.getId());
+        Assertions.assertEquals(add.getNameDto(), added.getNameDto());
+
+
+
 
         int after = categoryService.getAll().size();
         Assertions.assertEquals(before + 1, after);
@@ -92,9 +112,13 @@ public class CategoryServiceTest {
         Assertions.assertNull(deleted);
 
         int after = categoryService.getAll().size();
-        Assertions.assertEquals(before - 1, after);
+        Assertions.assertEquals(before-1, after);
     }
 }
+
+
+
+
 
 
 

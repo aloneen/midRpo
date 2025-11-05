@@ -68,12 +68,46 @@ public class ItemServiceTest {
     void addTest() {
         int before = itemService.getAll().size();
 
-        CategoryDto categoryDto = new CategoryDto(1L, "name");
-        CountryDto countryDto = new CountryDto(1L, "name", "name");
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setNameDto("name");
+        CountryDto countryDto = new CountryDto();
+        countryDto.setNameDto("name");
+        countryDto.setCodeDto("code");
 
-        ItemDto itemDto = new ItemDto(null, "name", 2399, countryDto, List.of(categoryDto));
+        ItemDto itemDto = new ItemDto();
+        itemDto.setNameDto("name");
+        itemDto.setPriceDto(2300);
+        itemDto.setCountryDto(countryDto);
+        itemDto.setCategoriesDto(List.of(categoryDto));
 
-        Assertions.assertTrue(itemService.create(itemDto));
+        ItemDto add = itemService.create(itemDto);
+
+        Assertions.assertNotNull(add);
+        Assertions.assertNotNull(add.getId());
+        Assertions.assertNotNull(add.getNameDto());
+        Assertions.assertNotNull(add.getPriceDto());
+        Assertions.assertNotNull(add.getCountryDto());
+        Assertions.assertNotNull(add.getCategoriesDto());
+
+
+        ItemDto added = itemService.getById(add.getId());
+
+        Assertions.assertNotNull(added);
+        Assertions.assertNotNull(added.getId());
+        Assertions.assertNotNull(added.getNameDto());
+        Assertions.assertNotNull(added.getPriceDto());
+        Assertions.assertNotNull(added.getCountryDto());
+        Assertions.assertNotNull(added.getCategoriesDto());
+
+
+
+        Assertions.assertEquals(add.getId(), added.getId());    
+        Assertions.assertEquals(add.getNameDto(), added.getNameDto());
+        Assertions.assertEquals(add.getPriceDto(), added.getPriceDto());
+        Assertions.assertEquals(add.getCountryDto(), added.getCountryDto());
+        Assertions.assertEquals(add.getCategoriesDto(), added.getCategoriesDto());
+
+
 
         int after = itemService.getAll().size();
         Assertions.assertEquals(before + 1, after);

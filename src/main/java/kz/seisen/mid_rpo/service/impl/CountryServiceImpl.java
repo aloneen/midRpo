@@ -2,6 +2,7 @@ package kz.seisen.mid_rpo.service.impl;
 
 import kz.seisen.mid_rpo.dto.CountryDto;
 import kz.seisen.mid_rpo.dto.ItemDto;
+import kz.seisen.mid_rpo.entity.CountryEntity;
 import kz.seisen.mid_rpo.mapper.CountryMapper;
 import kz.seisen.mid_rpo.mapper.ItemMapper;
 import kz.seisen.mid_rpo.repository.CountryRepository;
@@ -32,11 +33,11 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public boolean create(CountryDto dto) {
-        if (Objects.isNull(dto)) return false;
+    public CountryDto create(CountryDto dto) {
+        if (Objects.isNull(dto)) return null;
 
-        repository.save(mapper.toEntity(dto));
-        return true;
+        CountryEntity saved = repository.save(mapper.toEntity(dto));
+        return mapper.toDto(saved);
     }
 
     @Override

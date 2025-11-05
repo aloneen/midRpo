@@ -8,7 +8,7 @@ public interface ItemService {
 
     List<ItemDto> getAll();
     ItemDto getById(Long id);
-    boolean create(ItemDto dto);
+    ItemDto create(ItemDto dto);
     boolean update(Long id, ItemDto dto);
     void delete(Long id);
 }
