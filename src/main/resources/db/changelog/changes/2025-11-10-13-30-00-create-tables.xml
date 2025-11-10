@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- ====================== -->
+    <!-- 1. Создание таблицы countries -->
+    <!-- ====================== -->
+    <changeSet id="create-countries-table" author="dias">
+        <createTable tableName="countries">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- ====================== -->
+    <!-- 2. Создание таблицы categories -->
+    <!-- ====================== -->
+    <changeSet id="create-categories-table" author="dias">
+        <createTable tableName="categories">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- ====================== -->
+    <!-- 3. Создание таблицы items -->
+    <!-- ====================== -->
+    <changeSet id="create-items-table" author="dias">
+        <createTable tableName="items">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- ====================== -->
+    <!-- 4. Внешний ключ из items -> countries -->
+    <!-- ====================== -->
+    <changeSet id="add-fk-items-country" author="dias">
+        <addForeignKeyConstraint
+                baseTableName="items"
+                baseColumnNames="country_id"
+                constraintName="fk_items_country"
+                referencedTableName="countries"
+                referencedColumnNames="id"
+                onDelete="SET NULL"
+                onUpdate="CASCADE"/>
+    </changeSet>
+
+    <!-- ====================== -->
+    <!-- 5. Таблица связи items_categories (ManyToMany) -->
+    <!-- ====================== -->
+    <changeSet id="create-items-categories-table" author="dias">
+        <createTable tableName="items_categories">
+            <column name="item_id" type="bigint"/>
+            <column name="category_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <!-- ====================== -->
+    <!-- 6. Foreign Key для items_categories.item_id -->
+    <!-- ====================== -->
+    <changeSet id="add-fk-items-categories-item" author="dias">
+        <addForeignKeyConstraint
+                baseTableName="items_categories"
+                baseColumnNames="item_id"
+                constraintName="fk_items_categories_item"
+                referencedTableName="items"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"/>
+    </changeSet>
+
+    <!-- ====================== -->
+    <!-- 7. Foreign Key для items_categories.category_id -->
+    <!-- ====================== -->
+    <changeSet id="add-fk-items-categories-category" author="dias">
+        <addForeignKeyConstraint
+                baseTableName="items_categories"
+                baseColumnNames="category_id"
+                constraintName="fk_items_categories_category"
+                referencedTableName="categories"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"/>
+    </changeSet>
+
+</databaseChangeLog>

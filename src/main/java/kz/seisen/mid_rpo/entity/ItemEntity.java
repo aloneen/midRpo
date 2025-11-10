@@ -26,5 +26,10 @@ public class ItemEntity {
     private CountryEntity country;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "items_categories",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
     private List<CategoryEntity> categories;
 }
