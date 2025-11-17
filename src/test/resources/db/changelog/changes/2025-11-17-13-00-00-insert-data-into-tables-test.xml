@@ -8,15 +8,15 @@
 
     <changeSet id="insert-countries" author="dias">
         <insert tableName="countries">
-            <column name="name" value="Kazakhstan"/>
+            <column name="name" value="Kazakhstan Test"/>
             <column name="code" value="KZ"/>
         </insert>
         <insert tableName="countries">
-            <column name="name" value="Japan"/>
+            <column name="name" value="Japan Test"/>
             <column name="code" value="JP"/>
         </insert>
         <insert tableName="countries">
-            <column name="name" value="USA"/>
+            <column name="name" value="USA Test"/>
             <column name="code" value="US"/>
         </insert>
     </changeSet>
@@ -37,17 +37,17 @@
 
     <changeSet id="insert-items" author="dias">
         <insert tableName="items">
-            <column name="name" value="Smartphone"/>
+            <column name="name" value="Smartphone Test"/>
             <column name="price" valueNumeric="350000"/>
             <column name="country_id" valueNumeric="2"/> <!-- Japan -->
         </insert>
         <insert tableName="items">
-            <column name="name" value="Laptop"/>
+            <column name="name" value="Laptop Test"/>
             <column name="price" valueNumeric="600000"/>
             <column name="country_id" valueNumeric="2"/> <!-- Japan -->
         </insert>
         <insert tableName="items">
-            <column name="name" value="Yurt Model"/>
+            <column name="name" value="Yurt Model Test"/>
             <column name="price" valueNumeric="45000"/>
             <column name="country_id" valueNumeric="1"/> <!-- Kazakhstan -->
         </insert>
