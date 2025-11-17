@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="insert-countries" author="dias">
+        <insert tableName="countries">
+            <column name="name" value="Kazakhstan"/>
+            <column name="code" value="KZ"/>
+        </insert>
+        <insert tableName="countries">
+            <column name="name" value="Japan"/>
+            <column name="code" value="JP"/>
+        </insert>
+        <insert tableName="countries">
+            <column name="name" value="USA"/>
+            <column name="code" value="US"/>
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="insert-categories" author="dias">
+        <insert tableName="categories">
+            <column name="name" value="Electronics"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Toys"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Home"/>
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="insert-items" author="dias">
+        <insert tableName="items">
+            <column name="name" value="Smartphone"/>
+            <column name="price" valueNumeric="350000"/>
+            <column name="country_id" valueNumeric="2"/> <!-- Japan -->
+        </insert>
+        <insert tableName="items">
+            <column name="name" value="Laptop"/>
+            <column name="price" valueNumeric="600000"/>
+            <column name="country_id" valueNumeric="2"/> <!-- Japan -->
+        </insert>
+        <insert tableName="items">
+            <column name="name" value="Yurt Model"/>
+            <column name="price" valueNumeric="45000"/>
+            <column name="country_id" valueNumeric="1"/> <!-- Kazakhstan -->
+        </insert>
+    </changeSet>
+
+
+
+    <changeSet id="insert-items-categories" author="dias">
+        <!-- Smartphone -> Electronics -->
+        <insert tableName="items_categories">
+            <column name="item_id" valueNumeric="1"/>
+            <column name="category_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Laptop -> Electronics -->
+        <insert tableName="items_categories">
+            <column name="item_id" valueNumeric="2"/>
+            <column name="category_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Yurt Model -> Home + Toys -->
+        <insert tableName="items_categories">
+            <column name="item_id" valueNumeric="3"/>
+            <column name="category_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="items_categories">
+            <column name="item_id" valueNumeric="3"/>
+            <column name="category_id" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
