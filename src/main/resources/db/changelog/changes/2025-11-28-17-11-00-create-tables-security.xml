@@ -1,0 +1,76 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+
+    <changeSet id="create-permissions-table" author="dias">
+        <createTable tableName="permissions">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="create-users-table" author="dias">
+        <createTable tableName="users">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+
+
+
+    <changeSet id="create-users-permissions-table" author="dias">
+        <createTable tableName="users_permissions">
+            <column name="user_id" type="bigint"/>
+            <column name="permissions_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+
+
+    <changeSet id="add-fk-users-permissions-user" author="dias">
+        <addForeignKeyConstraint
+                baseTableName="users_permissions"
+                baseColumnNames="user_model_id"
+                constraintName="fk_users_permissions_user"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"/>
+    </changeSet>
+
+
+    <changeSet id="add-fk-user-permissions-permission" author="dias">
+        <addForeignKeyConstraint
+                baseTableName="users_permissions"
+                baseColumnNames="permissions_id"
+                constraintName="fk_users_permissions_permission"
+                referencedTableName="permissions"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"/>
+    </changeSet>
+
+</databaseChangeLog>

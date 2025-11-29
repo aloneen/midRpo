@@ -9,5 +9,6 @@
 <!--    <include file="changes/2025-11-12-12-50-00-insert-item-data.xml" relativeToChangelogFile="true"/>-->
     <include file="changes/2025-11-10-13-30-00-create-tables.xml" relativeToChangelogFile="true"/>
     <include file="changes/2025-11-10-13-55-00-insert-data-into-tables.xml" relativeToChangelogFile="true"/>
+<!--    <include file="changes/2025-11-28-17-11-00-create-tables-security.xml" relativeToChangelogFile="true"/>-->
 
 </databaseChangeLog>
